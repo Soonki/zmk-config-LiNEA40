@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LiNEA40 Keymap Cheatsheet</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --paper: #ffffff;
+      --ink: #1e2329;
+      --muted: #68717d;
+      --line: #d8dde5;
+      --key: #ffffff;
+      --key-border: #bfc7d2;
+      --accent: #0f766e;
+      --accent-soft: #d9f2ef;
+      --layer: #7c3aed;
+      --layer-soft: #eee7ff;
+      --mouse: #b45309;
+      --mouse-soft: #fff1d6;
+      --danger: #b91c1c;
+      --danger-soft: #fee2e2;
+      --none: #edf0f4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", "Noto Sans JP", system-ui, sans-serif;
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 30px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 3px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .section {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .layout {
+      width: 100%;
+      table-layout: fixed;
+      border-spacing: 6px;
+      border-collapse: separate;
+    }
+
+    .layout td {
+      height: 52px;
+      min-width: 0;
+      padding: 4px 5px;
+      border: 1px solid var(--key-border);
+      border-radius: 8px;
+      background: var(--key);
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1.12;
+      overflow-wrap: anywhere;
+    }
+
+    .layout .gap {
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .layout .trans {
+      border-style: dashed;
+      color: var(--muted);
+      background: #fafbfc;
+      font-weight: 500;
+    }
+
+    .layout .none {
+      color: #7c8592;
+      background: var(--none);
+      border-style: dashed;
+      font-weight: 600;
+    }
+
+    .layout .hold {
+      background: var(--layer-soft);
+      border-color: #bca7f4;
+      color: #4c1d95;
+    }
+
+    .layout .mouse {
+      background: var(--mouse-soft);
+      border-color: #e0a243;
+      color: #7a3e05;
+    }
+
+    .layout .combo {
+      background: var(--accent-soft);
+      border-color: #83cfc8;
+      color: #0b5d56;
+    }
+
+    .layout .maint {
+      background: var(--danger-soft);
+      border-color: #f5a3a3;
+      color: var(--danger);
+    }
+
+    .sub {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .quick {
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+
+    .quick strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 13px;
+    }
+
+    .quick span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swatch {
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--key-border);
+      border-radius: 4px;
+      background: var(--key);
+    }
+
+    .swatch.hold {
+      background: var(--layer-soft);
+      border-color: #bca7f4;
+    }
+
+    .swatch.mouse {
+      background: var(--mouse-soft);
+      border-color: #e0a243;
+    }
+
+    .swatch.none {
+      background: var(--none);
+      border-style: dashed;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .info-table th,
+    .info-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .info-table th {
+      width: 28%;
+      color: #39414c;
+      font-weight: 700;
+    }
+
+    .kbd {
+      display: inline-block;
+      min-width: 1.7em;
+      padding: 1px 6px;
+      border: 1px solid var(--key-border);
+      border-radius: 5px;
+      background: #fff;
+      color: var(--ink);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .print-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 860px) {
+      main {
+        width: calc(100vw - 20px);
+        padding-top: 14px;
+      }
+
+      header,
+      .section-head {
+        display: block;
+      }
+
+      .badge-row {
+        justify-content: flex-start;
+        margin-top: 10px;
+      }
+
+      .section-note {
+        margin-top: 4px;
+        text-align: left;
+      }
+
+      .layout {
+        min-width: 820px;
+      }
+
+      .section {
+        overflow-x: auto;
+      }
+
+      .quick-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      main {
+        width: 100%;
+        padding: 0;
+      }
+
+      .section {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+
+      .layout td {
+        height: 45px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>LiNEA40 Keymap Cheatsheet</h1>
+        <p class="meta">Source: <code>config/LiNEA40.keymap</code> / left encoder + right trackball / 40-key encoder build</p>
+      </div>
+      <div class="badge-row" aria-label="前提">
+        <span class="badge">QWERTY 30キー維持</span>
+        <span class="badge">Encoder pos 33 = none</span>
+        <span class="badge">IME = RC(Space)</span>
+        <span class="badge">Scroll layer = 5</span>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="quick-grid">
+        <div class="quick">
+          <strong>Layer 2</strong>
+          <span>左親指 <span class="kbd">Space</span> または右 <span class="kbd">BSpc</span> ホールドで記号・数字。</span>
+        </div>
+        <div class="quick">
+          <strong>Enter / Layer 3</strong>
+          <span>右親指 <span class="kbd">Enter</span> はタップで Enter、ホールドで Fキー・ナビ。</span>
+        </div>
+        <div class="quick">
+          <strong>IME</strong>
+          <span>右親指内側をタップで <span class="kbd">RC Space</span>、ホールドで右 Shift。</span>
+        </div>
+        <div class="quick">
+          <strong>Trackball Scroll</strong>
+          <span>ボール操作中に <span class="kbd">L</span> 位置を押すと Layer 5 スクロール。</span>
+        </div>
+      </div>
+      <div class="legend">
+        <span><i class="swatch"></i>通常キー</span>
+        <span><i class="swatch hold"></i>tap/hold または layer</span>
+        <span><i class="swatch mouse"></i>マウス操作</span>
+        <span><i class="swatch none"></i>物理キーなし / encoder</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Layer 0 - Base</h2>
+        <p class="section-note">Torabo S の英字 30 キー位置を維持。左 GUI と RAlt は未配置。</p>
+      </div>
+      <table class="layout" aria-label="Layer 0 Base">
+        <tr>
+          <td>Q</td><td>W</td><td>E</td><td>R</td><td>T</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>Y</td><td>U</td><td>I</td><td>O</td><td>P</td>
+        </tr>
+        <tr>
+          <td>A</td><td>S</td><td>D</td><td>F</td><td>G</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>H</td><td>J</td><td>K</td><td>L</td><td>;</td>
+        </tr>
+        <tr>
+          <td>Z</td><td>X</td><td>C</td><td>V</td><td>B</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>N</td><td>M</td><td>,</td><td>.</td><td class="hold">/<span class="sub">hold RShift</span></td>
+        </tr>
+        <tr>
+          <td class="hold">Esc<span class="sub">hold LCtrl</span></td><td>LShift</td><td>LAlt</td><td class="none">ENC<span class="sub">none</span></td><td>BSpc</td><td class="hold">Space<span class="sub">hold L2</span></td><td class="gap"></td><td class="hold">IME<span class="sub">hold RShift</span></td><td class="hold">Enter<span class="sub">hold L3</span></td><td class="gap"></td><td class="hold">BSpc<span class="sub">hold L2</span></td><td>RGui</td><td>RCtrl</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Layer 1 - Mouse / Automouse</h2>
+        <p class="section-note">トラックボール移動で自動有効。未表示キーは下位レイヤを透過。</p>
+      </div>
+      <table class="layout" aria-label="Layer 1 Mouse">
+        <tr>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="mouse">Forward<span class="sub">MB5</span></td><td class="mouse">Middle<span class="sub">MCLK</span></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+        </tr>
+        <tr>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="mouse">Back<span class="sub">MB4</span></td><td class="mouse">LClick</td><td class="mouse">RClick</td><td class="hold">Scroll<span class="sub">hold L5</span></td><td class="trans">-</td>
+        </tr>
+        <tr>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+        </tr>
+        <tr>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="none">ENC<span class="sub">none</span></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Layer 2 - Symbols / Numbers</h2>
+        <p class="section-note">左親指 Space または右 Backspace ホールド。F+G combo で BT clear。</p>
+      </div>
+      <table class="layout" aria-label="Layer 2 Symbols Numbers">
+        <tr>
+          <td>!</td><td>@</td><td>#</td><td>$</td><td>%</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>^</td><td>&amp;</td><td>*</td><td>(</td><td>)</td>
+        </tr>
+        <tr>
+          <td>1</td><td>2</td><td>3</td><td class="combo">4<span class="sub">BT clr F+</span></td><td class="combo">5<span class="sub">BT clr +G</span></td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>{</td><td>-</td><td>=</td><td>}</td><td>:</td>
+        </tr>
+        <tr>
+          <td>6</td><td>7</td><td>8</td><td>9</td><td>0</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>_</td><td>+</td><td>[</td><td>]</td><td>\</td>
+        </tr>
+        <tr>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="none">ENC<span class="sub">none</span></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td>Tab</td><td>Del</td><td class="trans">-</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Layer 3 - Function / Navigation</h2>
+        <p class="section-note">右親指 Enter ホールド。USB/BLE/BT next をここに配置。</p>
+      </div>
+      <table class="layout" aria-label="Layer 3 Function Navigation">
+        <tr>
+          <td>F1</td><td>F2</td><td>F3</td><td>F4</td><td>F5</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>Home</td><td>PgUp</td><td>PgDn</td><td>End</td><td>Esc</td>
+        </tr>
+        <tr>
+          <td>F6</td><td>F7</td><td>F8</td><td>F9</td><td>F10</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>&larr;</td><td>&darr;</td><td>&uarr;</td><td>&rarr;</td><td>Tab</td>
+        </tr>
+        <tr>
+          <td>F11</td><td>F12</td><td>USB</td><td>BLE</td><td>BT Next</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>'</td><td>&quot;</td><td>`</td><td>~</td><td>|</td>
+        </tr>
+        <tr>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="none">ENC<span class="sub">none</span></td><td>Del</td><td>Tab</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Layer 5 - Scroll</h2>
+        <p class="section-note">Layer 1 の L 位置から一時的に入る。トラックボール移動をスクロールへ変換。</p>
+      </div>
+      <table class="layout" aria-label="Layer 5 Scroll">
+        <tr>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+        </tr>
+        <tr>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+        </tr>
+        <tr>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+        </tr>
+        <tr>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="none">ENC<span class="sub">none</span></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Layer 4 / 6 - Maintenance</h2>
+        <p class="section-note">ソースには残しているが、現在の Base から直接呼び出すキーは未配置。</p>
+      </div>
+      <div class="table-wrap">
+        <table class="info-table">
+          <tr>
+            <th>Layer 4 FUNCTION</th>
+            <td>F1-F12、Alt+PrintScreen、Win+Shift+S、Ctrl+Alt+Del、Ctrl+Shift+Esc などの予備レイヤ。Base からのアクセスキーは無し。</td>
+          </tr>
+          <tr>
+            <th>Layer 6 WIRELESS</th>
+            <td>BT_SEL 0-4、BT_CLR、BT_CLR_ALL、bootloader、studio_unlock を保持。Base からのアクセスキーは無し。</td>
+          </tr>
+          <tr>
+            <th>Encoder</th>
+            <td>通常はホイールスクロール。Layer 2 では音量上下、Layer 5 では上下キー、Layer 6 では左右キー。</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Combos</h2>
+        <p class="section-note">同時押し。Layer 指定のない combo は全レイヤで有効。</p>
+      </div>
+      <div class="table-wrap">
+        <table class="info-table">
+          <tr><th><span class="kbd">S</span> + <span class="kbd">D</span></th><td>Grave / 全角半角用。</td></tr>
+          <tr><th><span class="kbd">U</span> + <span class="kbd">I</span></th><td>Insert。</td></tr>
+          <tr><th><span class="kbd">I</span> + <span class="kbd">O</span></th><td>Delete。</td></tr>
+          <tr><th><span class="kbd">J</span> + <span class="kbd">K</span></th><td>Middle click。</td></tr>
+          <tr><th><span class="kbd">K</span> + <span class="kbd">L</span></th><td>Right click。</td></tr>
+          <tr><th><span class="kbd">M</span> + <span class="kbd">,</span></th><td>Forward click / MB5。</td></tr>
+          <tr><th><span class="kbd">,</span> + <span class="kbd">.</span></th><td>Back click / MB4。</td></tr>
+          <tr><th>Layer 2: <span class="kbd">F</span> + <span class="kbd">G</span></th><td>Bluetooth clear。</td></tr>
+        </table>
+      </div>
+      <p class="print-note">確認ポイント: IME が期待と逆の場合は <code>RC(SPACE)</code> を <code>LC(SPACE)</code> / <code>LANG1</code> / <code>LANG2</code> に差し替える。</p>
+    </section>
+  </main>
+</body>
+</html>
