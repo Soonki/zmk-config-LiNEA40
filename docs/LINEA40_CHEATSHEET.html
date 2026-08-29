@@ -124,6 +124,7 @@
     }
 
     .layout td {
+      position: relative;
       height: 52px;
       min-width: 0;
       padding: 4px 5px;
@@ -190,6 +191,31 @@
       font-weight: 600;
     }
 
+    .combo-label {
+      position: absolute;
+      top: 50%;
+      right: -26px;
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 42px;
+      max-width: 54px;
+      min-height: 19px;
+      padding: 1px 5px;
+      border: 1px solid #58b8af;
+      border-radius: 999px;
+      background: #e8faf8;
+      color: #0b5d56;
+      box-shadow: 0 1px 3px rgba(15, 118, 110, 0.18);
+      font-size: 9px;
+      font-weight: 800;
+      line-height: 1.05;
+      transform: translateY(-50%);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
     .quick-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -245,6 +271,11 @@
     .swatch.mouse {
       background: var(--mouse-soft);
       border-color: #e0a243;
+    }
+
+    .swatch.combo {
+      background: var(--accent-soft);
+      border-color: #83cfc8;
     }
 
     .swatch.none {
@@ -357,12 +388,12 @@
     <header>
       <div>
         <h1>LiNEA40 Keymap Cheatsheet</h1>
-        <p class="meta">Source: <code>config/LiNEA40.keymap</code> / left encoder + right trackball / 40-key encoder build</p>
+        <p class="meta">Source: <code>config/LiNEA40.keymap</code> / left-side encoder + right trackball / 40-key build</p>
       </div>
       <div class="badge-row" aria-label="前提">
         <span class="badge">QWERTY 30キー維持</span>
-        <span class="badge">Encoder pos 33 = none</span>
-        <span class="badge">IME = RC(Space)</span>
+        <span class="badge">Left encoder (pos 32 = none)</span>
+        <span class="badge">IME = LC / RC(Space)</span>
         <span class="badge">Scroll layer = 5</span>
       </div>
     </header>
@@ -371,7 +402,7 @@
       <div class="quick-grid">
         <div class="quick">
           <strong>Layer 2</strong>
-          <span>左親指 <span class="kbd">Space</span> または右 <span class="kbd">BSpc</span> ホールドで記号・数字。</span>
+          <span>左親指 <span class="kbd">Space</span> または右 <span class="kbd">Ctrl+Space</span> ホールドで記号・数字。</span>
         </div>
         <div class="quick">
           <strong>Enter / Layer 3</strong>
@@ -379,17 +410,18 @@
         </div>
         <div class="quick">
           <strong>IME</strong>
-          <span>右親指内側をタップで <span class="kbd">RC Space</span>、ホールドで右 Shift。</span>
+          <span>左最内側は <span class="kbd">LC Space</span>／hold LShift、右最内側は <span class="kbd">RC Space</span>／hold Layer 2。</span>
         </div>
         <div class="quick">
           <strong>Trackball Scroll</strong>
-          <span>ボール操作中に <span class="kbd">L</span> 位置を押すと Layer 5 スクロール。</span>
+          <span><span class="kbd">;</span> をホールド中、トラックボール移動を Layer 5 スクロールへ変換。</span>
         </div>
       </div>
       <div class="legend">
         <span><i class="swatch"></i>通常キー</span>
         <span><i class="swatch hold"></i>tap/hold または layer</span>
         <span><i class="swatch mouse"></i>マウス操作</span>
+        <span><i class="swatch combo"></i>combo 関係キー</span>
         <span><i class="swatch none"></i>物理キーなし / encoder</span>
       </div>
     </section>
@@ -404,34 +436,34 @@
           <td>Q</td><td>W</td><td>E</td><td>R</td><td>T</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>Y</td><td>U</td><td>I</td><td>O</td><td>P</td>
         </tr>
         <tr>
-          <td>A</td><td>S</td><td>D</td><td>F</td><td>G</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>H</td><td>J</td><td>K</td><td>L</td><td>;</td>
+          <td>A</td><td>S</td><td>D</td><td>F</td><td>G</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="combo">H</td><td class="combo">J<span class="combo-label">Back / LClick</span></td><td class="combo">K<span class="combo-label">LClick / RClick</span></td><td class="combo">L</td><td class="hold">;<span class="sub">hold Scroll</span></td>
         </tr>
         <tr>
-          <td>Z</td><td>X</td><td>C</td><td>V</td><td>B</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>N</td><td>M</td><td>,</td><td>.</td><td class="hold">/<span class="sub">hold RShift</span></td>
+          <td>Z</td><td>X</td><td>C</td><td>V</td><td>B</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>N</td><td>M</td><td class="combo">,<span class="combo-label">Forward</span></td><td class="combo">.</td><td class="hold">/<span class="sub">hold RShift</span></td>
         </tr>
         <tr>
-          <td class="hold">Esc<span class="sub">hold LCtrl</span></td><td>LShift</td><td>LAlt</td><td class="none">ENC<span class="sub">none</span></td><td>BSpc</td><td class="hold">Space<span class="sub">hold L2</span></td><td class="gap"></td><td class="hold">IME<span class="sub">hold RShift</span></td><td class="hold">Enter<span class="sub">hold L3</span></td><td class="gap"></td><td class="hold">BSpc<span class="sub">hold L2</span></td><td>RGui</td><td>RCtrl</td>
+          <td>LCtrl</td><td>LAlt</td><td class="none">ENC<span class="sub">left / none</span></td><td>BSpc</td><td class="hold">Space<span class="sub">hold L2</span></td><td class="hold">LC Space<span class="sub">hold LShift</span></td><td class="gap"></td><td class="hold">RC Space<span class="sub">hold L2</span></td><td class="hold">Enter<span class="sub">hold L3</span></td><td class="gap"></td><td>BSpc</td><td>RGui</td><td>RCtrl</td>
         </tr>
       </table>
     </section>
 
     <section class="section">
       <div class="section-head">
-        <h2>Layer 1 - Mouse / Automouse</h2>
-        <p class="section-note">トラックボール移動で自動有効。未表示キーは下位レイヤを透過。</p>
+        <h2>Layer 1 - Reserved</h2>
+        <p class="section-note">レイヤー番号維持用の空レイヤー。自動マウスレイヤーとCodexレイヤーは使用しない。</p>
       </div>
-      <table class="layout" aria-label="Layer 1 Mouse">
+      <table class="layout" aria-label="Layer 1 Reserved">
         <tr>
-          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="mouse">Forward<span class="sub">MB5</span></td><td class="mouse">Middle<span class="sub">MCLK</span></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
-        </tr>
-        <tr>
-          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="mouse">Back<span class="sub">MB4</span></td><td class="mouse">LClick</td><td class="mouse">RClick</td><td class="hold">Scroll<span class="sub">hold L5</span></td><td class="trans">-</td>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
         </tr>
         <tr>
           <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
         </tr>
         <tr>
-          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="none">ENC<span class="sub">none</span></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+        </tr>
+        <tr>
+          <td class="trans">-</td><td class="trans">-</td><td class="none">ENC<span class="sub">left</span></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
         </tr>
       </table>
     </section>
@@ -439,20 +471,20 @@
     <section class="section">
       <div class="section-head">
         <h2>Layer 2 - Symbols / Numbers</h2>
-        <p class="section-note">左親指 Space または右 Backspace ホールド。F+G combo で BT clear。</p>
+        <p class="section-note">左親指Spaceまたは右Ctrl+Spaceホールド。参照元S Layoutの数字・記号配置。</p>
       </div>
       <table class="layout" aria-label="Layer 2 Symbols Numbers">
         <tr>
           <td>!</td><td>@</td><td>#</td><td>$</td><td>%</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>^</td><td>&amp;</td><td>*</td><td>(</td><td>)</td>
         </tr>
         <tr>
-          <td>1</td><td>2</td><td>3</td><td class="combo">4<span class="sub">BT clr F+</span></td><td class="combo">5<span class="sub">BT clr +G</span></td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>{</td><td>-</td><td>=</td><td>}</td><td>:</td>
+          <td>1</td><td>2</td><td>3</td><td>0</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>{</td><td>-</td><td>=</td><td>}</td><td>:</td>
         </tr>
         <tr>
-          <td>6</td><td>7</td><td>8</td><td>9</td><td>0</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>_</td><td>+</td><td>[</td><td>]</td><td>\</td>
+          <td>4</td><td>5</td><td>6</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>_</td><td>+</td><td>[</td><td>]</td><td>\</td>
         </tr>
         <tr>
-          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="none">ENC<span class="sub">none</span></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td>Tab</td><td>Del</td><td class="trans">-</td>
+          <td>7</td><td>8</td><td class="none">ENC<span class="sub">left</span></td><td>9</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td>Tab</td><td class="gap"></td><td>Del</td><td class="trans">-</td><td class="trans">-</td>
         </tr>
       </table>
     </section>
@@ -473,7 +505,7 @@
           <td>F11</td><td>F12</td><td>USB</td><td>BLE</td><td>BT Next</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td>'</td><td>&quot;</td><td>`</td><td>~</td><td>|</td>
         </tr>
         <tr>
-          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="none">ENC<span class="sub">none</span></td><td>Del</td><td>Tab</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+          <td class="trans">-</td><td class="trans">-</td><td class="none">ENC<span class="sub">left</span></td><td>Del</td><td>Tab</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
         </tr>
       </table>
     </section>
@@ -481,7 +513,7 @@
     <section class="section">
       <div class="section-head">
         <h2>Layer 5 - Scroll</h2>
-        <p class="section-note">Layer 1 の L 位置から一時的に入る。トラックボール移動をスクロールへ変換。</p>
+        <p class="section-note">Baseのセミコロンをホールド中に入る。トラックボール移動をスクロールへ変換。</p>
       </div>
       <table class="layout" aria-label="Layer 5 Scroll">
         <tr>
@@ -494,7 +526,7 @@
           <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="gap"></td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
         </tr>
         <tr>
-          <td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="none">ENC<span class="sub">none</span></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
+          <td class="trans">-</td><td class="trans">-</td><td class="none">ENC<span class="sub">left</span></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="gap"></td><td class="trans">-</td><td class="trans">-</td><td class="trans">-</td>
         </tr>
       </table>
     </section>
@@ -529,14 +561,10 @@
       </div>
       <div class="table-wrap">
         <table class="info-table">
-          <tr><th><span class="kbd">S</span> + <span class="kbd">D</span></th><td>Grave / 全角半角用。</td></tr>
-          <tr><th><span class="kbd">U</span> + <span class="kbd">I</span></th><td>Insert。</td></tr>
-          <tr><th><span class="kbd">I</span> + <span class="kbd">O</span></th><td>Delete。</td></tr>
-          <tr><th><span class="kbd">J</span> + <span class="kbd">K</span></th><td>Middle click。</td></tr>
+          <tr><th><span class="kbd">J</span> + <span class="kbd">K</span></th><td>Left click。</td></tr>
           <tr><th><span class="kbd">K</span> + <span class="kbd">L</span></th><td>Right click。</td></tr>
-          <tr><th><span class="kbd">M</span> + <span class="kbd">,</span></th><td>Forward click / MB5。</td></tr>
-          <tr><th><span class="kbd">,</span> + <span class="kbd">.</span></th><td>Back click / MB4。</td></tr>
-          <tr><th>Layer 2: <span class="kbd">F</span> + <span class="kbd">G</span></th><td>Bluetooth clear。</td></tr>
+          <tr><th><span class="kbd">H</span> + <span class="kbd">J</span></th><td>Back / MB4。</td></tr>
+          <tr><th><span class="kbd">,</span> + <span class="kbd">.</span></th><td>Forward / MB5。</td></tr>
         </table>
       </div>
       <p class="print-note">確認ポイント: IME が期待と逆の場合は <code>RC(SPACE)</code> を <code>LC(SPACE)</code> / <code>LANG1</code> / <code>LANG2</code> に差し替える。</p>
