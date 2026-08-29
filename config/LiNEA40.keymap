@@ -111,37 +111,6 @@
                 , <&macro_tap &kp L &kp G &kp T &kp M &kp N1 &kp N1>
                 , <&macro_release &kp LSHFT>;
         };
-
-        cursor_layer: cursor_layer {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <0>;
-            tap-ms = <0>;
-            bindings
-                = <&macro_press &mo CURSOR>
-                , <&macro_pause_for_release>
-                , <&macro_release &kp LALT &mo CURSOR>;
-        };
-
-        window_prev: window_prev {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <5>;
-            tap-ms = <20>;
-            bindings
-                = <&macro_press &kp LALT>
-                , <&macro_tap &kp LS(TAB)>;
-        };
-
-        window_next: window_next {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <5>;
-            tap-ms = <20>;
-            bindings
-                = <&macro_press &kp LALT>
-                , <&macro_tap &kp TAB>;
-        };
     };
 
     behaviors {
@@ -151,14 +120,6 @@
             flavor = "tap-preferred";
             tapping-term-ms = <140>;
             bindings = <&mo>, <&kp>;
-        };
-
-        cursor_hold: cursor_hold {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <180>;
-            bindings = <&cursor_layer>, <&kp>;
         };
 
         re_kp: sensor_rotate_kp {
@@ -191,14 +152,14 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <180>;
-            bindings = <&none>, <&window_prev>;
+            bindings = <&none>, <&kp LA(LS(TAB))>;
         };
 
         window_next_slow: window_next_slow {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <180>;
-            bindings = <&none>, <&window_next>;
+            bindings = <&none>, <&kp LA(TAB)>;
         };
 
         windows_slow: windows_slow {
@@ -224,7 +185,7 @@
 &kp Q          &kp W           &kp E     &kp R     &kp T                       &kp Y                &kp U        &kp I      &kp O      &kp P
 &kp A          &kp S           &kp D     &kp F     &kp G                       &kp H                &kp J        &kp K      &kp L      &scroll_hold SCROLL SEMICOLON
 &kp Z          &kp X           &kp C     &kp V     &kp B                       &kp N                &kp M        &kp COMMA  &kp DOT    &mt RIGHT_SHIFT SLASH
-&kp LCTRL  &kp LALT  &none  &kp BACKSPACE  &lt 2 SPACE  &mt LEFT_SHIFT LC(SPACE)  &lt 2 RC(SPACE)  &cursor_hold 0 ENTER  &lgtm  &kp RGUI  &kp RCTRL
+&kp LCTRL  &kp LALT  &none  &kp BACKSPACE  &lt 2 SPACE  &mt LEFT_SHIFT LC(SPACE)  &lt 2 RC(SPACE)  &lt 3 ENTER  &lgtm  &kp RGUI  &kp RCTRL
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
