@@ -122,6 +122,46 @@
             bindings = <&kp>, <&kp>;
         };
 
+        chrome_prev_slow: chrome_prev_slow {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <180>;
+            bindings = <&none>, <&kp LC(LS(TAB))>;
+        };
+
+        chrome_next_slow: chrome_next_slow {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <180>;
+            bindings = <&none>, <&kp LC(TAB)>;
+        };
+
+        chrome_tabs_slow: chrome_tabs_slow {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&chrome_prev_slow>, <&chrome_next_slow>;
+        };
+
+        window_prev_slow: window_prev_slow {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <180>;
+            bindings = <&none>, <&kp LA(LS(TAB))>;
+        };
+
+        window_next_slow: window_next_slow {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <180>;
+            bindings = <&none>, <&kp LA(TAB)>;
+        };
+
+        windows_slow: windows_slow {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&window_prev_slow>, <&window_next_slow>;
+        };
+
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
@@ -166,7 +206,7 @@
 &kp N7      &kp N8      &none       &kp N9      &trans      &trans    &trans  &kp TAB                   &kp DEL       &trans      &trans
             >;
 
-            sensor-bindings = <&re_kp LC(LS(TAB)) LC(TAB)>;
+            sensor-bindings = <&chrome_tabs_slow>;
         };
 
         //3
@@ -179,7 +219,7 @@
 &trans   &trans        &none        &kp DEL       &kp TAB  &trans    &trans  &trans                  &trans         &trans         &studio_unlock
             >;
 
-            sensor-bindings = <&re_kp LA(LS(TAB)) LA(TAB)>;
+            sensor-bindings = <&windows_slow>;
         };
 
         //4
