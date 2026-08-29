@@ -91,6 +91,22 @@
         };
     };
 
+    macros {
+        compatible = "zmk,macros";
+
+        // Torabo macro: type "LGTM!!" on a US layout.
+        lgtm: lgtm {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <5>;
+            tap-ms = <5>;
+            bindings
+                = <&macro_press &kp LSHFT>
+                , <&macro_tap &kp L &kp G &kp T &kp M &kp N1 &kp N1>
+                , <&macro_release &kp LSHFT>;
+        };
+    };
+
     behaviors {
         scroll_hold: scroll_hold {
             compatible = "zmk,behavior-hold-tap";
@@ -123,7 +139,7 @@
 &kp Q          &kp W           &kp E     &kp R     &kp T                       &kp Y                &kp U        &kp I      &kp O      &kp P
 &kp A          &kp S           &kp D     &kp F     &kp G                       &kp H                &kp J        &kp K      &kp L      &scroll_hold SCROLL SEMICOLON
 &kp Z          &kp X           &kp C     &kp V     &kp B                       &kp N                &kp M        &kp COMMA  &kp DOT    &mt RIGHT_SHIFT SLASH
-&kp LCTRL  &kp LALT  &none  &kp BACKSPACE  &lt 2 SPACE  &mt LEFT_SHIFT LC(SPACE)  &lt 2 RC(SPACE)  &lt 3 ENTER  &kp BACKSPACE  &kp RGUI  &kp RCTRL
+&kp LCTRL  &kp LALT  &none  &kp BACKSPACE  &lt 2 SPACE  &mt LEFT_SHIFT LC(SPACE)  &lt 2 RC(SPACE)  &lt 3 ENTER  &lgtm  &kp RGUI  &kp RCTRL
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -150,7 +166,7 @@
 &kp N7      &kp N8      &none       &kp N9      &trans      &trans    &trans  &kp TAB                   &kp DEL       &trans      &trans
             >;
 
-            sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
+            sensor-bindings = <&re_kp LC(LS(TAB)) LC(TAB)>;
         };
 
         //3
@@ -160,8 +176,10 @@
 &kp F1   &kp F2        &kp F3       &kp F4        &kp F5                     &kp HOME  &kp PAGE_UP  &kp PAGE_DOWN  &kp END        &kp ESC
 &kp F6   &kp F7        &kp F8       &kp F9        &kp F10                    &kp LEFT_ARROW  &kp DOWN  &kp UP_ARROW  &kp RIGHT_ARROW  &kp TAB
 &kp F11  &kp F12       &out OUT_USB &out OUT_BLE  &bt BT_NXT                 &kp SQT   &kp LS(SQT)  &kp GRAVE      &kp LS(GRAVE)  &kp LS(BSLH)
-&trans   &trans        &none        &kp DEL       &kp TAB  &trans    &trans  &trans                  &trans         &trans         &trans
+&trans   &trans        &none        &kp DEL       &kp TAB  &trans    &trans  &trans                  &trans         &trans         &studio_unlock
             >;
+
+            sensor-bindings = <&re_kp LA(LS(TAB)) LA(TAB)>;
         };
 
         //4
